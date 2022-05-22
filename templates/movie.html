@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% block content %}
+        {{movie.id}}
+        {{movie.title}}
+        {{movie.budget}}
+        {{movie.genres}}    
+
+    <!-- is_favourite from view is checked  -->
+        {% if not context.is_favourite %} 
+            <div>
+                <a href="/add_to_fav/{{movie.id}}">
+                    Add to Favourite
+                </a>
+            </div>
+            {% else %} 
+            <div>
+                <a href="/remove_from_fav/{{movie.id}}">
+                    Remove from Favourite
+                </a>
+            </div>
+        {% endif %}
+
+        <div>
+            <!-- for recommendation -->
+            You might also like:
+            {% for movie in recommended_movies %}
+                <a href="/movies/{{movie.id}}">{{movie.title}}</a>
+            {% endfor %}
+        </div>
+
+        <form action="/movies/{{movie.id}}" method="post">
+            {% csrf_token %} 
+            {{ review_form.as_p}} 
+        <input type="submit" value="save"/>
+        </form>
+
+
+
+        {% for review in reviews%} 
+        <div>
+            <div>{{review.user.username}}</div>
+            <div>{{review.review}}</div>
+            <div>{{review.created_at}}</div>
+        </div>
+        {% endfor %}
+{% endblock %}

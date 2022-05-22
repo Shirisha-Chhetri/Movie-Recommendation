@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+{% block content %}
+
+    <table border="1" width="100%">
+        <th>Id</th>
+        <th>Title</th>
+        <th>budget</th>
+        <th>Genre</th>
+        <th>Action</th>
+        <!-- For loop logic of jinja template -->
+        {% for movie in movies %}
+        <div>
+            <tr>
+                <td>{{movie.id}}</td>
+                <td>{{movie.title}}</td>
+                <td>{{movie.budget}}</td>
+                <td>{{movie.genres}}</td>
+                <td><a href="/movies/{{movie.id}}/update">Update</a>
+                    <a href="/movies/{{movie.id}}/delete">Delete</a></td>
+            </tr>
+        </div>
+        {% endfor %}
+    </table>
+        
+        <div>
+            <!-- for pagination -->
+            {% if pagination.current_page > 1%} 
+                <a href="/movie/page/{{pagination.previous_page}}">
+                    Previous Page
+                </a>
+            {% endif %}
+
+            {% if pagination.current_page != pagination.last_page %} 
+                <a href="/movie/page/{{pagination.next_page}}">
+                    Next Page
+                </a>
+            {% endif %}
+        </div> 
+{% endblock %}

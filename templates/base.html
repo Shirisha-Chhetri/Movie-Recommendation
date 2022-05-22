@@ -1,0 +1,26 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Documnet</title>
+        <link rel="stylesheet" href="{% static 'css/index.css' %}" />
+    </head>
+    <body>
+        <nav>
+            <ul>
+                <li class="li"><a href="/index">Home</a></li>
+                <li><a href="/movie">Movies</a></li>
+
+              <!-- to show that user is loggedin in the system -->
+                {% if request.User.is_authenticated %}
+                    Logged in as {{ request.User.username}}
+                {% endif %}
+            </ul>
+        </nav>
+        <div class="container">
+            {% block content %}
+            {% endblock %}
+        </div>
+    </body>
+</html>
